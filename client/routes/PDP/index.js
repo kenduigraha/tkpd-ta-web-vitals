@@ -1,14 +1,10 @@
-import React from 'react';
-import { object } from 'prop-types';
 
-import PdpComponent from './components';
+import loadable from '@loadable/component';
 
-const PDP = ({ match }) => {
-	return (<PdpComponent match={match}/>)
-};
+const errorLoading = err => console.log('PDP page loading failed!', err);
 
-PDP.propTypes = {
-  match: object.isRequired,
-};
+const PDPComponent = loadable(() =>
+  import(/* webpackChunkName: "pdp" */ './components').catch(errorLoading),
+);
 
-export default PDP;
+export default PDPComponent;
